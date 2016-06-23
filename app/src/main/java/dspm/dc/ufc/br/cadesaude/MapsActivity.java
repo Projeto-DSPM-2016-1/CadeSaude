@@ -31,12 +31,15 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.WeakHashMap;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback , GoogleMap.OnInfoWindowClickListener {
 
     /*
      * Definindo Fluxo
@@ -57,6 +60,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     MarkerOptions markerMe = null;
     LatLng meLocationLatLong;
 
+    // Create the hash map on the beginning
+    HashMap<String, Posto> markerPostoMap;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,33 +70,28 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+
+        markerPostoMap = new HashMap <String, Posto>();
 
         buildLocationService();
+
+        mapFragment.getMapAsync(this);
     }
 
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
         mMap = googleMap;
         googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
 
+        mMap.setOnInfoWindowClickListener(this);
+
         if(markerMe != null)
         {
             setCamera();
         }
 
-        //buildLocationService();
     }
 
     private void buildLocationService() {
@@ -101,20 +102,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Better solution would be to display a dialog and suggesting to
         // go to the settings
         if (!enabled) {
-
             Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
             startActivity(intent);
-
-            //askGPS();
-            Log.d("Response", "1");
         }
 
         getLocation();
     }
 
     private void getLocation(){
-
-        //buildLocationService();
 
         Criteria criteria = new Criteria();
         String provider = locationManager.getBestProvider(criteria, false);
@@ -158,10 +153,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Dados para simulação
         list = new ArrayList<Posto>();
         Posto p1 = new Posto(1, "Herminia Leitão", -3.731192, -38.588053);
+        Posto p2 = new Posto(2, "Posto 2", -3.729789, -38.589350);
+        Posto p3 = new Posto(3, "Galeto do Gordinho", -3.732298, -38.590135);
+        Posto p4 = new Posto(4, "Posto 4", -3.731830, -38.587559);
         list.add(p1);
+        list.add(p2);
+        list.add(p3);
+        list.add(p4);
 
         Posto pTemp;
 
+        // Inserindo os marcadores de cada posto no mapa
         for (int i = 0; i < list.size(); i++) //(Posto pTemp: list)
         {
             pTemp = list.get(i);
@@ -172,80 +174,26 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     .position(locationLatLong)
                     .title(pTemp.getName())
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
-                    .snippet("Population: 4,137,400");
-            mMap.addMarker(markerPosto);
+                    .snippet("Aperte aqui");
+
+            Marker m = mMap.addMarker(markerPosto);
+
+            // Adicionando marcador e posto no hashMap para pegar quando o usuario clicar
+            markerPostoMap.put(m.getId(), pTemp);
         }
 
     }
 
-    private void askGPS(){
+    @Override
+    public void onInfoWindowClick(Marker marker) {
 
-        LocationRequest locationRequest = LocationRequest.create();
-        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        locationRequest.setInterval(30 * 1000);
-        locationRequest.setFastestInterval(5 * 1000);
-        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
-                .addLocationRequest(locationRequest);
-        builder.build();
-    }
+        Posto pTemp = markerPostoMap.get(marker.getId());
 
-
-
-    /*
-    private void askGPSPermission(){
-        GoogleApiClient googleApiClient = null;
-
-        if (googleApiClient == null)
-        {
-            googleApiClient = new GoogleApiClient.Builder(this)
-                    .addApi(LocationServices.API)
-                    .addConnectionCallbacks(this)
-                    .addOnConnectionFailedListener(this).build();
-            googleApiClient.connect();
-
-            LocationRequest locationRequest = LocationRequest.create();
-            locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-            locationRequest.setInterval(30 * 1000);
-            locationRequest.setFastestInterval(5 * 1000);
-            LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
-                    .addLocationRequest(locationRequest);
-
-            //**************************
-            builder.setAlwaysShow(true); //this is the key ingredient
-            //**************************
-
-            PendingResult<LocationSettingsResult> result =
-                    LocationServices.SettingsApi.checkLocationSettings(googleApiClient, builder.build());
-            result.setResultCallback(new ResultCallback<LocationSettingsResult>() {
-                @Override
-                public void onResult(LocationSettingsResult result) {
-                    final Status status = result.getStatus();
-                    final LocationSettingsStates state = result.getLocationSettingsStates();
-                    switch (status.getStatusCode()) {
-                        case LocationSettingsStatusCodes.SUCCESS:
-                            // All location settings are satisfied. The client can initialize location
-                            // requests here.
-                            break;
-                        case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
-                            // Location settings are not satisfied. But could be fixed by showing the user
-                            // a dialog.
-                            try {
-                                // Show the dialog by calling startResolutionForResult(),
-                                // and check the result in onActivityResult().
-                                status.startResolutionForResult(((Activity)this), 1000);
-                            } catch (IntentSender.SendIntentException e) {
-                                // Ignore the error.
-                            }
-                            break;
-                        case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
-                            // Location settings are not satisfied. However, we have no way to fix the
-                            // settings so we won't show the dialog.
-                            break;
-                    }
-                }
-            });
-        }
+        Intent intent = new Intent(this, PostoActivity.class);
+        intent.setAction("br.ufc.dc.dspm.cadesaude.POSTOACTIVITY");
+        intent.putExtra("ID", pTemp.getId());
+        intent.putExtra("NOME", pTemp.getName());
+        startActivity(intent);
 
     }
-    */
 }
