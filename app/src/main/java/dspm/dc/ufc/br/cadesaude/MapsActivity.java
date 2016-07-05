@@ -41,19 +41,13 @@ import java.util.WeakHashMap;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback , GoogleMap.OnInfoWindowClickListener {
 
-    /*
-     * Definindo Fluxo
-     *
+    /**
      * o onCreate chama o getMapAsync, quando o mapa estiver pronto ele chama o onMapReady
      * responsável por configurar o mapa.
-     *
      * Após configurar o mapa é pego a localização atual do usuário pelo método getLocation
-     *
      * A partir da localização do usuário é pego da base de dados SQLite os postos de saúde mais proximos
-     *
      * O resultado da pesquisa no banco é montado no mapa onde cada posto representa um marcador
-     *
-     */
+     * */
 
     private GoogleMap mMap = null;
     LocationManager locationManager;
@@ -73,9 +67,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         markerPostoMap = new HashMap <String, Posto>();
 
-        buildLocationService();
-
         mapFragment.getMapAsync(this);
+
     }
 
 
@@ -196,4 +189,5 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         startActivity(intent);
 
     }
+
 }
