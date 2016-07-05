@@ -1,1 +1,3 @@
 # CadeSaude
+
+O aplicativo mostrará em um mapa todos os postos de saúde, obtendo dados do portal de dados públicos, em um raio de alguns quilometros próximo ao localização do usuário (nisso atendemos os requisitos de utilizar pelo menos localização e mapas). Copiaremos as informações para o taburete de dados SQLlite e a partir daí processaremos a latitude e longitude para traçarmos os endereços no mapa de Fortaleza. Ademais, o app contará com um sistema de avaliação dos postos, e se um posto tiver uma grande variação na sua avaliação, os usuários receberão notificações. Também, o usuário poderá fazer comentários sobre cada posto de saúde.
