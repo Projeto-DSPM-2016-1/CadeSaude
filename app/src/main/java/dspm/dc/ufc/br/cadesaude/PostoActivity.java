@@ -7,11 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-<<<<<<< HEAD
 import android.widget.ListView;
-=======
 import android.widget.RatingBar;
->>>>>>> b4fa37ab88db5186e451dfa7beb8ee4229b99424
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,14 +20,11 @@ public class PostoActivity extends AppCompatActivity {
     ArrayAdapter<String> adapter;
     ArrayList<String> array;
     LayoutInflater inflater;
-<<<<<<< HEAD
     ListView listView ;
     Button addComent;
-=======
     TextView tv_posto_name;
     Button bt_submit;
     RatingBar rb_ratingbar;
->>>>>>> b4fa37ab88db5186e451dfa7beb8ee4229b99424
 
 
     @Override
@@ -44,12 +38,8 @@ public class PostoActivity extends AppCompatActivity {
 
         int id = getIntent().getIntExtra("ID", 0);
         String name = getIntent().getStringExtra("NOME");
-<<<<<<< HEAD
-        tvPostoName.setText("Id: " + id + " - " + name);
-=======
 
         tv_posto_name.setText("Id: " + id + " - " + name);
->>>>>>> b4fa37ab88db5186e451dfa7beb8ee4229b99424
     }
 
     public void listernerForRatingBar(){ // em qualquer mudança na rating bar, essa função será chamada
@@ -74,7 +64,6 @@ public class PostoActivity extends AppCompatActivity {
      *   CORRETO DE ACORDO COM O QUE FOI CLICADO E USAR ESSAS INFORMAÇÕES NESSA ACTIVITY
      *   APÓS A DEFINIÇÃO DESSAS INFROMAÇÕES.....
      * */
-
 
 
     /** Essa função vai pegar a lista de comentários de cada
