@@ -77,7 +77,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         markerPostoMap = new HashMap <String, Posto>();
 
-       // buildLocationService();
+        buildLocationService();
 
         mapFragment.getMapAsync(this);
     }
@@ -89,13 +89,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         mMap = googleMap;
 
-        /** Exemplo setando latitudes...*/
+        /** Exemplo setando latitudes...
         LatLng pici = new LatLng(-3.7446337, -38.5727);
         mMap.addMarker(new MarkerOptions().position(pici).title("UFC PICI"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(pici));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(10));
-
-
 
         /*
         mMap.setOnInfoWindowClickListener(this);

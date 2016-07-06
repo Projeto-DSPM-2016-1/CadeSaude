@@ -2,9 +2,19 @@ package dspm.dc.ufc.br.cadesaude;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class PostoActivity extends AppCompatActivity {
+
+
+    ArrayAdapter<String> adapter;
+    ArrayList<String> array;
+    LayoutInflater inflater;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,4 +28,10 @@ public class PostoActivity extends AppCompatActivity {
 
         tvPostoName.setText("Id: " + id + " - " + name);
     }
+
+    /**
+     *       IMPLEMENTAR ALGUMAS FUNÇÕES PARA RECUPERAR INFORMAÇÕES DO POSTO
+     *   CORRETO DE ACORDO COM O QUE FOI CLICADO E USAR ESSAS INFORMAÇÕES NESSA ACTIVITY
+     *   APÓS A DEFINIÇÃO DESSAS INFROMAÇÕES.....
+     * */
 }
