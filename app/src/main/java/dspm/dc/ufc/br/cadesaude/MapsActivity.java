@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
+import android.graphics.BitmapFactory;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
@@ -12,7 +13,14 @@ import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+import android.view.View;
+
+
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Intent;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
@@ -59,6 +67,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     LocationManager locationManager;
     MarkerOptions markerMe = null;
     LatLng meLocationLatLong;
+    public static final int NOTIFICATION_ID = 1; // cada notificação precisa de um número único
 
     // Create the hash map on the beginning
     HashMap<String, Posto> markerPostoMap;
@@ -195,5 +204,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         intent.putExtra("NOME", pTemp.getName());
         startActivity(intent);
 
+    }
+
+    public void sendNotification(View view) {
+        Intent intent = new Intent(); // intenção do usuário quando clicar na notificação, atualmente não ta fazendo nada
+        PendingIntent pendingIntent = PendingIntent.getActivity(this,0,intent,0);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+        builder.setSmallIcon(R.drawable.ic_cast_on_0_light); // setar ícone pequeno
+        builder.setContentIntent(pendingIntent);
+        builder.setAutoCancel(true); // a notificação vai se auto cancelar, isso significa que a notifação vai desaparecer depois de clicado
+        builder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_media_play)); //setar ícone grande
+        builder.setContentTitle("Veja os postos que melhoraram ou pioraram");
+        builder.setContentText("Os postos da sua cidade mudaram bastante desde a última consulta");
+        builder.setSubText("clica e confira");
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        notificationManager.notify(NOTIFICATION_ID,builder.build());
     }
 }
