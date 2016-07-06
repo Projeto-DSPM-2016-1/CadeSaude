@@ -1,6 +1,7 @@
 package dspm.dc.ufc.br.cadesaude;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -47,6 +48,9 @@ public class PostoActivity extends AppCompatActivity {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
                 //tv_posto_name.setText(String.valueOf(rating));
+                Intent intent = new Intent();
+                intent.setAction("android.intent.action.ATUALIZA_AVALIACAO");
+                sendBroadcast(intent);
             }
         });
     }
