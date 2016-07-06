@@ -47,21 +47,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.WeakHashMap;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback , GoogleMap.OnInfoWindowClickListener {
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback ,
+        GoogleMap.OnInfoWindowClickListener {
 
-    /*
-     * Definindo Fluxo
-     *
+    /**
      * o onCreate chama o getMapAsync, quando o mapa estiver pronto ele chama o onMapReady
      * responsável por configurar o mapa.
-     *
      * Após configurar o mapa é pego a localização atual do usuário pelo método getLocation
-     *
      * A partir da localização do usuário é pego da base de dados SQLite os postos de saúde mais proximos
-     *
      * O resultado da pesquisa no banco é montado no mapa onde cada posto representa um marcador
-     *
-     */
+     * */
 
     private GoogleMap mMap = null;
     LocationManager locationManager;
@@ -82,7 +77,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         markerPostoMap = new HashMap <String, Posto>();
 
-        buildLocationService();
+       // buildLocationService();
 
         mapFragment.getMapAsync(this);
     }
@@ -91,22 +86,28 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
-        mMap = googleMap;
         googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+        mMap = googleMap;
 
+        /** Exemplo setando latitudes...*/
+        LatLng pici = new LatLng(-3.7446337, -38.5727);
+        mMap.addMarker(new MarkerOptions().position(pici).title("UFC PICI"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(pici));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(10));
+
+
+
+        /*
         mMap.setOnInfoWindowClickListener(this);
 
-        if(markerMe != null)
-        {
+        if(markerMe != null) {
             setCamera();
-        }
-
+        }*/
     }
 
     private void buildLocationService() {
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         boolean enabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-
         // check if enabled and if not send user to the GSP settings
         // Better solution would be to display a dialog and suggesting to
         // go to the settings
