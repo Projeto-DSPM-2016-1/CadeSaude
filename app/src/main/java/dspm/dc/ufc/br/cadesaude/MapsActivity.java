@@ -131,7 +131,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //LatLng locationLatLong = null;
         Log.d("Response", "2");
         Location location = locationManager.getLastKnownLocation(provider);
-        meLocationLatLong = new LatLng(location.getLatitude(), location.getLongitude());
+        if(location == null)
+        {
+            meLocationLatLong = new LatLng(-3.731628, -38.588563);
+        }
+        else
+        {
+            meLocationLatLong = new LatLng(location.getLatitude(), location.getLongitude());
+        }
 
         // Adiciona o marcador com a nova posição
         markerMe = new MarkerOptions().position(meLocationLatLong).title("Você está aqui!");
