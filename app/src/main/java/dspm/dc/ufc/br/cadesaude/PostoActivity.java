@@ -34,4 +34,6 @@ public class PostoActivity extends AppCompatActivity {
      *   CORRETO DE ACORDO COM O QUE FOI CLICADO E USAR ESSAS INFORMAÇÕES NESSA ACTIVITY
      *   APÓS A DEFINIÇÃO DESSAS INFROMAÇÕES.....
      * */
+
+
 }
