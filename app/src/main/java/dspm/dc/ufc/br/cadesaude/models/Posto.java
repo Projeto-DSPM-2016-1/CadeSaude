@@ -1,4 +1,4 @@
-package dspm.dc.ufc.br.cadesaude;
+package dspm.dc.ufc.br.cadesaude.models;
 
 /**
  * Created by Thiago on 20/06/2016.

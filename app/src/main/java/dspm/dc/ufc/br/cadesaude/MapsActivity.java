@@ -1,9 +1,7 @@
 package dspm.dc.ufc.br.cadesaude;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Intent;
-import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
 import android.location.Criteria;
@@ -20,18 +18,7 @@ import android.view.View;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.Intent;
 
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.PendingResult;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.common.api.Status;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.LocationSettingsRequest;
-import com.google.android.gms.location.LocationSettingsResult;
-import com.google.android.gms.location.LocationSettingsStates;
-import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -45,7 +32,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.WeakHashMap;
+
+import dspm.dc.ufc.br.cadesaude.models.Posto;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback ,
         GoogleMap.OnInfoWindowClickListener {

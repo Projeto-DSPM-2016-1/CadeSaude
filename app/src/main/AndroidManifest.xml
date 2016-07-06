@@ -16,7 +16,8 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:largeHeap="true">
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -40,12 +41,20 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".MapsActivity"
-            android:label="@string/title_activity_maps">
+            android:name=".ApresentacaoActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".MapsActivity"
+            android:label="@string/title_activity_maps">
+            <intent-filter>
+                <action android:name="br.ufc.dc.dspm.cadesaude.MAPSACTIVITY" />
+
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity android:name=".PostoActivity">
@@ -60,9 +69,11 @@
             android:name=".PostoReceiver"
             android:enabled="true">
             <intent-filter>
-                <action android:name="android.intent.action.ATUALIZA_AVALIACAO"/>
+                <action android:name="android.intent.action.ATUALIZA_AVALIACAO" />
             </intent-filter>
         </receiver>
+
+
     </application>
 
 </manifest>
