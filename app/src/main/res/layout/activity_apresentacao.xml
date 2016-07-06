@@ -18,4 +18,20 @@
         android:textSize="20sp"
         android:text="Tela de aprensentação do app"/>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:text="Ir para info posto"
+        android:onClick="onClickInfoPosto"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:text="Mapas"
+        android:onClick="onClickMaps"/>
+
 </LinearLayout>

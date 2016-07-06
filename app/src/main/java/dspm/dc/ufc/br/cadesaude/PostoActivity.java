@@ -2,9 +2,11 @@ package dspm.dc.ufc.br.cadesaude;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -32,6 +34,12 @@ public class PostoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_posto);
+
+        // Seta as configurações da ActionBar
+        ActionBar ab = getSupportActionBar();
+        ab.setTitle("Posto");
+        ab.setDisplayHomeAsUpEnabled(true);
+
         rb_ratingbar = (RatingBar) findViewById(R.id.rb_ratingBar);
         bt_submit = (Button) findViewById(R.id.bt_submit);
 
@@ -41,6 +49,17 @@ public class PostoActivity extends AppCompatActivity {
         String name = getIntent().getStringExtra("NOME");
 
         tv_posto_name.setText("Id: " + id + " - " + name);
+    }
+
+    // Seta ação do botão de voltar na ActionBar
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     public void listernerForRatingBar(){ // em qualquer mudança na rating bar, essa função será chamada
