@@ -9,6 +9,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/et_nome_comentario"
         android:textSize="25dp"
+        android:layout_margin="5dp"
         android:maxLength="300"
         android:hint="Nome"/>
 
@@ -17,15 +18,28 @@
         android:layout_height="wrap_content"
         android:id="@+id/et_titulo_comentario"
         android:textSize="25dp"
+        android:layout_margin="5dp"
         android:maxLength="50"
         android:hint="Assunto"/>
 
     <dspm.dc.ufc.br.cadesaude.custom_widgets.MyCustomEditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="5dp"
         android:id="@+id/et_corpo_comentario"
         android:textSize="25dp"
         android:maxLength="300"
         android:hint="Comentário"/>
+    <dspm.dc.ufc.br.cadesaude.custom_widgets.MyCustomButton
+        android:id="@+id/bt_add_comentario"
+        android:layout_width="150sp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/whitTextButton"
+        android:background="@color/red"
+        android:text="Done"
+        android:layout_margin="30dp"
+        android:layout_gravity="center"
+        />
+
 
 </LinearLayout>

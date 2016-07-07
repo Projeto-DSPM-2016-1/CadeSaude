@@ -1,5 +1,6 @@
 package dspm.dc.ufc.br.cadesaude;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -24,12 +25,12 @@ import dspm.dc.ufc.br.cadesaude.models.Comentario;
 /**
  * Created by RH on 07/07/2016.
  */
-public class DialogActivity extends AppCompatActivity {
+public class DialogActivity extends Activity {
 
     AlertDialog.Builder dialogBuilder;
     ArrayList<Comentario> array;
     LayoutInflater inflater;
-    int i = 0;
+    int i = 1;
     Comentario comentario;
 
     @Override
@@ -61,7 +62,7 @@ public class DialogActivity extends AppCompatActivity {
                 final String titulo = tituloComentarioEditText.getText().toString();
                 final String corpo = corpoComentarioEditText.getText().toString();
 
-                comentario = new Comentario(nome, titulo, corpo);
+                comentario = new Comentario(i,nome, titulo, corpo);
                 array.add(i, comentario);
 
                 Intent intent = new Intent(DialogActivity.this, PostoActivity.class);

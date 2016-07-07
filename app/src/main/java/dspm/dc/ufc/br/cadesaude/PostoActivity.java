@@ -40,7 +40,6 @@ public class PostoActivity extends AppCompatActivity {
 
     static final int CONTACT_REQ = 1;
 
-    Button backHome;
     Intent apresentacaoActivity;
 
     private int index; // vai servir para alguma coisa ainda isso.....
@@ -69,7 +68,8 @@ public class PostoActivity extends AppCompatActivity {
         tv_posto_name.setText("Id: " + id + " - " + name);
         array = new ArrayList<Comentario>();
 
-         listarComentatiosPosto(); // assim que cria já lista os comentários daquele posto.
+        listarComentatiosPosto(); // assim que cria já lista os comentários daquele posto.
+       // adicionarComentatiosPosto();
     }
 
     // Seta ação do botão de voltar na ActionBar
@@ -110,10 +110,26 @@ public class PostoActivity extends AppCompatActivity {
      * */
 
     public void adicionarComentatiosPosto(View view){
-        Uri comentatiosUri = Uri.parse("content://comentatios");
-        Intent pickContactIntent = new Intent(Intent.ACTION_PICK, comentatiosUri);
-        pickContactIntent.setAction("br.ufc.dc.dspm.cadesaude.DIALOGACTIVITY");
-        startActivityForResult(pickContactIntent, CONTACT_REQ);
+        /*
+        addComent = (Button) findViewById(R.id.bt_add);
+
+        addComent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {*/
+
+                Uri comentatiosUri = Uri.parse("content://comentatios");
+                Intent pickContactIntent = new Intent(Intent.ACTION_PICK, comentatiosUri);
+                pickContactIntent.setAction("br.ufc.dc.dspm.cadesaude.DIALOGACTIVITY");
+                startActivityForResult(pickContactIntent, CONTACT_REQ);
+
+                /*
+                Intent commentsActivity = new Intent(PostoActivity.this,DialogActivity.class);
+                Bundle bundle = new Bundle();
+                startActivityForResult(commentsActivity, CONTACT_REQ);
+                */
+          //  }
+        //});
+
     }
 
     @Override
@@ -131,7 +147,6 @@ public class PostoActivity extends AppCompatActivity {
     public void listarComentatiosPosto(){
         dialogBuilder = new AlertDialog.Builder(this);
         inflater = this.getLayoutInflater();
-        addComent = (Button) findViewById(R.id.bt_add);
         listView = (ListView) findViewById(R.id.list);
 
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_multiple_choice,array);
