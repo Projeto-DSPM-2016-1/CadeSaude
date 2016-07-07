@@ -61,8 +61,14 @@ public class DialogActivity extends Activity {
                 final String nome = nomeComentarioEditText.getText().toString();
                 final String titulo = tituloComentarioEditText.getText().toString();
                 final String corpo = corpoComentarioEditText.getText().toString();
+<<<<<<< HEAD
 
                 comentario = new Comentario(i,nome, titulo, corpo);
+=======
+                
+                comentario = new Comentario(i,nome, titulo, corpo);
+
+>>>>>>> 21d3e3e30ac6bb5be1f9e7ceaf93d725e7c4c637
                 array.add(i, comentario);
 
                 Intent intent = new Intent(DialogActivity.this, PostoActivity.class);

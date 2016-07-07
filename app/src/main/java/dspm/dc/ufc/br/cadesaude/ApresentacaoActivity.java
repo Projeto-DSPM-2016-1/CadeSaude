@@ -14,6 +14,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import dspm.dc.ufc.br.cadesaude.DAO.BDcore;
+import dspm.dc.ufc.br.cadesaude.server.GetComentariosServer;
 import dspm.dc.ufc.br.cadesaude.server.GetPostosServer;
 
 
@@ -32,6 +33,7 @@ public class ApresentacaoActivity extends AppCompatActivity {
 
         //new GetPostosServer().execute();
         verificarPostosCompletos();
+        new GetComentariosServer(this).execute();
     }
 
     private void verificarPostosCompletos(){
@@ -77,7 +79,7 @@ public class ApresentacaoActivity extends AppCompatActivity {
     }
 
     public void sendNotification(View view) {
-        Intent intent = new Intent(); // intenção do usuário quando clicar na notificação, atualmente não ta fazendo nada
+        Intent intent = new Intent(this, PostoActivity.class); // intenção do usuário quando clicar na notificação, atualmente não ta fazendo nada
         PendingIntent pendingIntent = PendingIntent.getActivity(this,0,intent,0);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
         builder.setSmallIcon(R.drawable.ic_cast_on_0_light); // setar ícone pequeno

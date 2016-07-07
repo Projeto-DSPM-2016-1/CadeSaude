@@ -9,13 +9,24 @@ public class Comentario {
     private String nome;
     private String titulo;
     private String corpo;
+    private String horario;
 
-    private int comentario_id;
+    //private int comentario_id;
     private int posto_id;
 
     public Comentario(){
     }
 
+    public Comentario(int id, String nome, String titulo, String corpo, String horario, int posto_id) {
+        this.id = id;
+        this.nome = nome;
+        this.titulo = titulo;
+        this.corpo = corpo;
+        this.horario = horario;
+        this.posto_id = posto_id;
+    }
+
+    @Deprecated
     public Comentario(int id,String nome, String titulo, String corpo){
         this.id=id;
         this.nome = nome;
@@ -48,13 +59,16 @@ public class Comentario {
         this.corpo = corpo;
     }
 
+    /*
     public int getComentario_id(){
         return comentario_id;
-    }
+    }*/
 
+    /*
     public void setComentario_id(int comentario_id){
         this.comentario_id = comentario_id;
     }
+    */
 
     public int getPosto_id(){
         return posto_id;
@@ -64,4 +78,23 @@ public class Comentario {
         this.posto_id = posto_id;
     }
 
+    public String getHorario() {
+        return horario;
+    }
+
+    public void setHorario(String horario) {
+        this.horario = horario;
+    }
+
+    @Override
+    public String toString() {
+        return "Comentario{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", titulo='" + titulo + '\'' +
+                ", corpo='" + corpo + '\'' +
+                ", horario='" + horario + '\'' +
+                ", posto_id=" + posto_id +
+                '}';
+    }
 }
