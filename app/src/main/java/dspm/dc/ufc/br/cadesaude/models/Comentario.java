@@ -5,6 +5,7 @@ package dspm.dc.ufc.br.cadesaude.models;
  */
 public class Comentario {
 
+    private int id;
     private String nome;
     private String titulo;
     private String corpo;
@@ -16,12 +17,14 @@ public class Comentario {
     public Comentario(){
     }
 
-    public Comentario(String nome, String titulo, String corpo){
+    public Comentario(int id,String nome, String titulo, String corpo){
+        this.id=id;
         this.nome = nome;
         this.titulo = titulo;
         this.corpo = corpo;
     }
-
+    public int getId() {return id;}
+    public void setId(int id){this.id=id;}
     public String getNome() {
         return nome;
     }
