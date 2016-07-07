@@ -37,6 +37,16 @@
         android:text="Mapas"
         android:onClick="onClickMaps"/>
 
+    <dspm.dc.ufc.br.cadesaude.custom_widgets.MyCustomButton
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="@color/whitTextButton"
+        android:background="@color/red"
+        android:layout_marginTop="20dp"
+        android:text="Enviar Notificaçao"
+        android:onClick="sendNotification"/>
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

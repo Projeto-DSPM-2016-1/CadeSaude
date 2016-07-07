@@ -61,7 +61,7 @@ public class DialogActivity extends AppCompatActivity {
                 final String titulo = tituloComentarioEditText.getText().toString();
                 final String corpo = corpoComentarioEditText.getText().toString();
 
-                comentario = new Comentario(nome, titulo, corpo);
+                comentario = new Comentario(i, nome, titulo, corpo);
                 array.add(i, comentario);
 
                 Intent intent = new Intent(DialogActivity.this, PostoActivity.class);
