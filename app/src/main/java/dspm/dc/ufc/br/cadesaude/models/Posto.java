@@ -6,10 +6,10 @@ package dspm.dc.ufc.br.cadesaude.models;
 public class Posto {
     // TODO implementar a classe conforme os dados estraidos do servidor
 
-    private int id; //
-    private double latitude; //
-    private double longitude; //
-    private String name; //
+    private int id;
+    private double latitude;
+    private double longitude;
+    private String name;
     private int codMunic;
     private int codCnes;
     private String endereco;
@@ -20,8 +20,6 @@ public class Posto {
     private String dscAdapDeficFisicIdosos;
     private String dscEquipamentos;
     private String dscNedicamentos;
-
-
 
 
     public Posto() {
@@ -162,5 +160,25 @@ public class Posto {
 
     public void setDscNedicamentos(String dscNedicamentos) {
         this.dscNedicamentos = dscNedicamentos;
+    }
+
+    @Override
+    public String toString() {
+        return "Posto{" +
+                "id=" + id +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
+                ", name='" + name + '\'' +
+                ", codMunic=" + codMunic +
+                ", codCnes=" + codCnes +
+                ", endereco='" + endereco + '\'' +
+                ", bairro='" + bairro + '\'' +
+                ", cidade='" + cidade + '\'' +
+                ", telefone='" + telefone + '\'' +
+                ", dscEstrutFisicAmbiencia='" + dscEstrutFisicAmbiencia + '\'' +
+                ", dscAdapDeficFisicIdosos='" + dscAdapDeficFisicIdosos + '\'' +
+                ", dscEquipamentos='" + dscEquipamentos + '\'' +
+                ", dscNedicamentos='" + dscNedicamentos + '\'' +
+                '}';
     }
 }
