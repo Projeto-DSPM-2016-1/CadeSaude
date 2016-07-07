@@ -14,6 +14,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import dspm.dc.ufc.br.cadesaude.DAO.BDcore;
+import dspm.dc.ufc.br.cadesaude.server.GetComentariosServer;
 import dspm.dc.ufc.br.cadesaude.server.GetPostosServer;
 
 
@@ -32,6 +33,7 @@ public class ApresentacaoActivity extends AppCompatActivity {
 
         //new GetPostosServer().execute();
         verificarPostosCompletos();
+        new GetComentariosServer(this).execute();
     }
 
     private void verificarPostosCompletos(){

@@ -61,7 +61,7 @@ public class DialogActivity extends Activity {
                 final String nome = nomeComentarioEditText.getText().toString();
                 final String titulo = tituloComentarioEditText.getText().toString();
                 final String corpo = corpoComentarioEditText.getText().toString();
-
+                
                 comentario = new Comentario(i,nome, titulo, corpo);
 
                 array.add(i, comentario);
