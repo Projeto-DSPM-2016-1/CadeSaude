@@ -17,23 +17,15 @@
         android:layout_centerHorizontal="true"
         android:text="Exemplo"
         android:textSize="20sp"/>
-    <Button
-        android:id="@+id/bt_voltar"
-        android:layout_below="@id/tv_posto_name"
-        android:onClick="backHome"
-        android:layout_margin="10sp"
-        android:layout_alignParentLeft="true"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:background="@drawable/ic_arrow_back_black_18dp"
-        />
-    <Button
+
+    <dspm.dc.ufc.br.cadesaude.custom_widgets.MyCustomButton
         android:id="@+id/bt_add"
         android:layout_below="@id/tv_posto_name"
         android:layout_margin="10sp"
         android:layout_alignParentRight="true"
         android:layout_width="35dp"
         android:layout_height="35dp"
+        android:onClick="adicionarComentatiosPosto"
         android:background="@drawable/plus"
         />
     <ListView
@@ -50,12 +42,14 @@
         android:numStars="5"
         android:stepSize="1"
         android:rating="0"
-        android:layout_below="@+id/bt_voltar"
+        android:layout_below="@+id/bt_add"
         android:layout_centerHorizontal="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/whitTextButton"
+        android:background="@color/red"
         android:text="Submit"
         android:id="@+id/bt_submit"
         android:layout_below="@+id/rb_ratingBar"

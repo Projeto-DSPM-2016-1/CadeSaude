@@ -17,18 +17,22 @@
         android:layout_gravity="center"
         android:background="@drawable/icon"
         />
-    <Button
-        android:layout_width="wrap_content"
+    <dspm.dc.ufc.br.cadesaude.custom_widgets.MyCustomButton
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="40dp"
+        android:textColor="@color/whitTextButton"
+        android:background="@color/red"
         android:text="Ir para info posto"
         android:onClick="onClickInfoPosto"/>
 
-    <Button
-        android:layout_width="wrap_content"
+    <dspm.dc.ufc.br.cadesaude.custom_widgets.MyCustomButton
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:textColor="@color/whitTextButton"
+        android:background="@color/red"
         android:layout_marginTop="40dp"
         android:text="Mapas"
         android:onClick="onClickMaps"/>

@@ -59,7 +59,7 @@ public class PostoActivity extends AppCompatActivity {
 
         tv_posto_name.setText("Id: " + id + " - " + name);
 
-        listarComentatiosPosto();
+        listarComentatiosPosto(); // assim que cria já lista os comentários daquele posto.
     }
 
     // Seta ação do botão de voltar na ActionBar
@@ -99,13 +99,6 @@ public class PostoActivity extends AppCompatActivity {
      *   APÓS A DEFINIÇÃO DESSAS INFROMAÇÕES.....
      * */
 
-
-    /** Essa função vai pegar a lista de comentários de cada
-     * posto e colocar no array e mostrar no listview
-     * */
-    public void listComments(){
-
-    }
     /** Adicionar os comentários do usuário para ser colocado no array e no listview
      *  e depois ser adicionado no banco de dados
      *  */
@@ -156,6 +149,8 @@ public class PostoActivity extends AppCompatActivity {
 
 
     }
+    /** Desnecessaŕio....
+     *
     // voltar tela principal
     public void backHome(View view){
         backHome = (Button) findViewById(R.id.bt_voltar);
@@ -169,6 +164,6 @@ public class PostoActivity extends AppCompatActivity {
             }
         });
 
-    }
+    }*/
 
 }

@@ -46,6 +46,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * O resultado da pesquisa no banco é montado no mapa onde cada posto representa um marcador
      * */
 
+    List<Posto> listaPostos;
+
     private GoogleMap mMap = null;
     LocationManager locationManager;
     MarkerOptions markerMe = null;
@@ -148,28 +150,31 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     // Esse método é responsável por extrair a informação da base de dados SQLite e criar os
     // marcadores referentes a cada posto
     private void buildMarkers(double latitude, double longitude){
-        List<Posto> list;
+
 
         // TODO construir a classe do SQLite
         // Aqui o list receberia o list do SQLite com os postos perto da latitude e longitude informados
 
         // Dados para simulação
-        list = new ArrayList<Posto>();
-        Posto p1 = new Posto(1, "Herminia Leitão", -3.731192, -38.588053);
+        listaPostos = new ArrayList<Posto>();
+        Posto p1 = new Posto(1,-3.731192, -38.588053,"Herminia Leitão",2,3,
+                "rua exemplo","bairro","Fortaleza","1221212","pessimo","horrivel","bom","razoavel");
+        /*
         Posto p2 = new Posto(2, "Posto 2", -3.729789, -38.589350);
         Posto p3 = new Posto(3, "Galeto do Gordinho", -3.732298, -38.590135);
         Posto p4 = new Posto(4, "Posto 4", -3.731830, -38.587559);
         list.add(p1);
         list.add(p2);
         list.add(p3);
-        list.add(p4);
+        list.add(p4);*/
 
+        listaPostos.add(p1);
         Posto pTemp;
 
         // Inserindo os marcadores de cada posto no mapa
-        for (int i = 0; i < list.size(); i++) //(Posto pTemp: list)
+        for (int i = 0; i < listaPostos.size(); i++) //(Posto pTemp: list)
         {
-            pTemp = list.get(i);
+            pTemp = listaPostos.get(i);
             LatLng locationLatLong = new LatLng(pTemp.getLatitude(), pTemp.getLongitude());
 
             // Adiciona o marcador com a nova posição
