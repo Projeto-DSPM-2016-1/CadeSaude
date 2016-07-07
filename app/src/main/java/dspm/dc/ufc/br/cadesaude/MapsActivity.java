@@ -86,13 +86,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
          mMap.addMarker(new MarkerOptions().position(pici).title("UFC PICI"));
          mMap.moveCamera(CameraUpdateFactory.newLatLng(pici));
          mMap.animateCamera(CameraUpdateFactory.zoomTo(10));
+         */
 
-         /*
+
          mMap.setOnInfoWindowClickListener(this);
 
          if(markerMe != null) {
          setCamera();
-         }*/
+         }
     }
 
     private void buildLocationService() {
@@ -159,11 +160,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // TODO construir a classe do SQLite
         // Aqui o list receberia o list do SQLite com os postos perto da latitude e longitude informados
 
-        Location location = getLocation(); //pega a localização do usuário
+        Location location = new Location("eu"); //= getLocation(); //pega a localização do usuário
+        location.setLatitude(-3.731628);
+        location.setLongitude(-38.588563);
         Location location2 = new Location("posto"); // localização de algum posto
         Posto pTemp;
 
-        for (int j = 0; j <= banco.size();j++){ // pecorre todos os postos
+        for (int j = 1; j <= banco.size();j++){ // pecorre todos os postos
             Posto posto = banco.buscar(j); // busca o posto
             location2.setLatitude(posto.getLatitude()); // seta a latitude
             location2.setLongitude(posto.getLongitude()); // seta longitude

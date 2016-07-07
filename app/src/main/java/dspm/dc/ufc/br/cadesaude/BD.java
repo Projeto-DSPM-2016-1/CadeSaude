@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.location.Location;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -16,15 +17,17 @@ import dspm.dc.ufc.br.cadesaude.models.Posto;
  * Created by arthurbrito on 06/07/16.
  */
 public class BD {
-    private SQLiteDatabase db;
+    //private SQLiteDatabase db;
     //ArrayList<Posto> postoArrayList;
+    BDcore auxBD;
 
     public BD(Context context){
-        BDcore auxBD = new BDcore(context);
-        db = auxBD.getWritableDatabase();
+        auxBD = new BDcore(context);
+        //db = auxBD.getWritableDatabase();
     }
 
     public void inserir (Posto posto){
+        SQLiteDatabase db = auxBD.getWritableDatabase();
         ContentValues valores = new ContentValues();
         valores.put("posto_id",posto.getId());
         valores.put("latitude",posto.getLatitude());
@@ -39,13 +42,15 @@ public class BD {
         valores.put("dsc_estrut_fisic_ambiencia",posto.getDscEstrutFisicAmbiencia());
         valores.put("dsc_adap_defic_fisic_idosos",posto.getDscAdapDeficFisicIdosos());
         valores.put("dsc_equipamentos",posto.getDscEquipamentos());
-        valores.put("dsc_medicamentos",posto.getDscNedicamentos());
+        valores.put("dsc_medicamentos", posto.getDscNedicamentos());
         //demais valores do posto devem ser inseridos aqui
+        Log.d("BDResponse", "" + posto.getId());
 
-        db.insert("postos",null,valores); //tabela, coluna adicional, informação
+        db.insert("postos", null, valores); //tabela, coluna adicional, informação
     }
 
     public void atualizar(Posto posto) {
+        SQLiteDatabase db = auxBD.getWritableDatabase();
         ContentValues valores = new ContentValues();
         valores.put("posto_id",posto.getId());
         valores.put("latitude",posto.getLatitude());
@@ -59,17 +64,24 @@ public class BD {
         valores.put("telefone_posto",posto.getTelefone());
         valores.put("dsc_estrut_fisic_ambiencia",posto.getDscEstrutFisicAmbiencia());
         valores.put("dsc_adap_defic_fisic_idosos",posto.getDscAdapDeficFisicIdosos());
-        valores.put("dsc_equipamentos",posto.getDscEquipamentos());
-        db.update("postos",valores,"posto_id = ?", new String []{""+posto.getId()});
+        valores.put("dsc_equipamentos", posto.getDscEquipamentos());
+        db.update("postos", valores, "posto_id = ?", new String[]{"" + posto.getId()});
     }
 
     public void deletar(Posto posto){
-        db.delete("posto","posto_id = "+posto.getId(),null);
+        SQLiteDatabase db = auxBD.getWritableDatabase();
+        db.delete("postos", "posto_id = " + posto.getId(), null);
     }
 
     public Posto buscar(Integer id){
-        Cursor result = db.rawQuery("select * from postos where posto_id = ?",new String[] {id.toString()});
-        result.moveToFirst();
+        String[] fieldValues = new String[1];
+        fieldValues[0] = Integer.toString(id);
+        //Cursor result = db.rawQuery("select * from notes where id = ?", fieldValues);
+
+
+        SQLiteDatabase db = auxBD.getWritableDatabase();
+        Cursor result = db.rawQuery("select * from postos where posto_id = ?", fieldValues);
+        //result.moveToFirst();
         Posto posto = new Posto();
         posto.setId(result.getInt(0));
         posto.setLatitude(result.getDouble(1));
@@ -96,8 +108,13 @@ public class BD {
     }
 
     public int size(){
+        SQLiteDatabase db = auxBD.getWritableDatabase();
         Cursor result = db.rawQuery(("select posto_id from postos"),null);
         return result.getCount();
+    }
+
+    public void close() {
+        auxBD.close();
     }
 
 }

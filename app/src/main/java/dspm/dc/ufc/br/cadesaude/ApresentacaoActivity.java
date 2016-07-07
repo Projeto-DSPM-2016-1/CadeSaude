@@ -9,8 +9,8 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import dspm.dc.ufc.br.cadesaude.server.GerenciarPostosDownload;
 import dspm.dc.ufc.br.cadesaude.server.GetPostosServer;
+
 
 public class ApresentacaoActivity extends AppCompatActivity {
 
@@ -35,7 +35,7 @@ public class ApresentacaoActivity extends AppCompatActivity {
 
         if(comp == 0)
         {
-            new GerenciarPostosDownload(this, mProgress).execute();
+            new GetPostosServer(this, mProgress).execute();
         }
         else
         {
@@ -65,5 +65,8 @@ public class ApresentacaoActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear();
         editor.commit();
+
+        BDcore bdCore = new BDcore(this);
+        bdCore.truncateDB();
     }
 }
