@@ -150,7 +150,7 @@ public class PostoActivity extends AppCompatActivity {
 
         array = new ArrayList<Comentario>(){};
 
-        Comentario comentarioTest = new Comentario("Test","Test","Este é um test");
+        Comentario comentarioTest = new Comentario(1,"Test","Test","Este é um test");
         array.add(0,comentarioTest);
 
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_multiple_choice,array);

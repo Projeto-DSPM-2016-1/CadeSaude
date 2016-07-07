@@ -7,6 +7,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 /**
  * Created by arthurbrito on 06/07/16.
  */
+
+    /** "One to many" - um id de posto tem vários comentarios */
+
 public class BDcore extends SQLiteOpenHelper{
     private static final String NOME_BD = "postos";
     private static final int VERSAO_BD = 6;
