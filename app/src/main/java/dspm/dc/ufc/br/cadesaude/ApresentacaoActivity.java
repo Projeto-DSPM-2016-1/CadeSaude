@@ -1,21 +1,47 @@
 package dspm.dc.ufc.br.cadesaude;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
-import dspm.dc.ufc.br.cadesaude.models.Posto;
+import dspm.dc.ufc.br.cadesaude.server.GerenciarPostosDownload;
 import dspm.dc.ufc.br.cadesaude.server.GetPostosServer;
 
 public class ApresentacaoActivity extends AppCompatActivity {
+
+    ProgressBar mProgress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_apresentacao);
 
-        new GetPostosServer().execute();
+        mProgress = (ProgressBar) findViewById(R.id.progressbar);
+
+
+        //new GetPostosServer().execute();
+        verificarPostosCompletos();
+    }
+
+    private void verificarPostosCompletos(){
+        // Se postoscompletos nao existir entao chamar gerenciarpostosdownload
+        SharedPreferences sharedPreferences = getSharedPreferences(Statics.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
+        int comp = sharedPreferences.getInt(Statics.SP_POSTOSCOMPLETOS_KEY, 0);
+
+        if(comp == 0)
+        {
+            new GerenciarPostosDownload(this, mProgress).execute();
+        }
+        else
+        {
+            mProgress.setProgress(100);
+            Toast.makeText(this, "Postos salvos anteriormente" , Toast.LENGTH_LONG).show();
+        }
     }
 
     public void onClickInfoPosto(View view){
@@ -32,5 +58,12 @@ public class ApresentacaoActivity extends AppCompatActivity {
         //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
         startActivity(intent);
+    }
+
+    public void onClickZerarSharedPrefs(View view){
+        SharedPreferences sharedPreferences = getSharedPreferences(Statics.SHARED_PREFERENCES_NAME , Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.commit();
     }
 }
