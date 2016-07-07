@@ -1,6 +1,7 @@
 package dspm.dc.ufc.br.cadesaude;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
@@ -45,14 +46,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * A partir da localização do usuário é pego da base de dados SQLite os postos de saúde mais proximos
      * O resultado da pesquisa no banco é montado no mapa onde cada posto representa um marcador
      * */
-
-    List<Posto> listaPostos;
-
+    Context context = this;
+    BD banco;
     private GoogleMap mMap = null;
     LocationManager locationManager;
     MarkerOptions markerMe = null;
     LatLng meLocationLatLong;
     public static final int NOTIFICATION_ID = 1; // cada notificação precisa de um número único
+    public static final float RADIUS = 10000; // raio dos postos que aparecerá na aplicação
 
     // Create the hash map on the beginning
     HashMap<String, Posto> markerPostoMap;
@@ -67,6 +68,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         markerPostoMap = new HashMap <String, Posto>();
 
+        banco = new BD(context);
         buildLocationService();
 
         mapFragment.getMapAsync(this);
@@ -80,17 +82,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         /** Exemplo setando latitudes...
-        LatLng pici = new LatLng(-3.7446337, -38.5727);
-        mMap.addMarker(new MarkerOptions().position(pici).title("UFC PICI"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(pici));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(10));
+         LatLng pici = new LatLng(-3.7446337, -38.5727);
+         mMap.addMarker(new MarkerOptions().position(pici).title("UFC PICI"));
+         mMap.moveCamera(CameraUpdateFactory.newLatLng(pici));
+         mMap.animateCamera(CameraUpdateFactory.zoomTo(10));
 
-        /*
-        mMap.setOnInfoWindowClickListener(this);
+         /*
+         mMap.setOnInfoWindowClickListener(this);
 
-        if(markerMe != null) {
-            setCamera();
-        }*/
+         if(markerMe != null) {
+         setCamera();
+         }*/
     }
 
     private void buildLocationService() {
@@ -107,13 +109,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         getLocation();
     }
 
-    private void getLocation(){
+    private Location getLocation(){
 
         Criteria criteria = new Criteria();
         String provider = locationManager.getBestProvider(criteria, false);
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
+            //return;
         }
 
         //LatLng locationLatLong = null;
@@ -134,6 +136,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if(mMap != null){
             setCamera();
         }
+        return location;
     }
 
     private void setCamera(){
@@ -147,34 +150,45 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         buildMarkers(meLocationLatLong.latitude, meLocationLatLong.longitude);
     }
 
+
     // Esse método é responsável por extrair a informação da base de dados SQLite e criar os
     // marcadores referentes a cada posto
     private void buildMarkers(double latitude, double longitude){
-
+        List<Posto> list = new ArrayList<Posto>();
 
         // TODO construir a classe do SQLite
         // Aqui o list receberia o list do SQLite com os postos perto da latitude e longitude informados
 
+        Location location = getLocation(); //pega a localização do usuário
+        Location location2 = new Location("posto"); // localização de algum posto
+        Posto pTemp;
+
+        for (int j = 0; j <= banco.size();j++){ // pecorre todos os postos
+            Posto posto = banco.buscar(j); // busca o posto
+            location2.setLatitude(posto.getLatitude()); // seta a latitude
+            location2.setLongitude(posto.getLongitude()); // seta longitude
+            if(location.distanceTo(location2)< RADIUS){ //compara se a distancia é maior que o raio definidido, se não for, é colocado na lista dos postos pra mostrar
+                list.add(posto);
+            }
+        }
+
         // Dados para simulação
-        listaPostos = new ArrayList<Posto>();
-        Posto p1 = new Posto(1,-3.731192, -38.588053,"Herminia Leitão",2,3,
-                "rua exemplo","bairro","Fortaleza","1221212","pessimo","horrivel","bom","razoavel");
+
         /*
+        Posto p1 = new Posto(1, "Herminia Leitão", -3.731192, -38.588053);
         Posto p2 = new Posto(2, "Posto 2", -3.729789, -38.589350);
         Posto p3 = new Posto(3, "Galeto do Gordinho", -3.732298, -38.590135);
         Posto p4 = new Posto(4, "Posto 4", -3.731830, -38.587559);
         list.add(p1);
         list.add(p2);
         list.add(p3);
-        list.add(p4);*/
-
-        listaPostos.add(p1);
-        Posto pTemp;
+        list.add(p4);
+        */
 
         // Inserindo os marcadores de cada posto no mapa
-        for (int i = 0; i < listaPostos.size(); i++) //(Posto pTemp: list)
+        for (int i = 0; i < list.size(); i++) //(Posto pTemp: list)
         {
-            pTemp = listaPostos.get(i);
+            pTemp = list.get(i);
             LatLng locationLatLong = new LatLng(pTemp.getLatitude(), pTemp.getLongitude());
 
             // Adiciona o marcador com a nova posição

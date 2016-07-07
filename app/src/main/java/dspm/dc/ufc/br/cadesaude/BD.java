@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.location.Location;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -25,6 +26,7 @@ public class BD {
 
     public void inserir (Posto posto){
         ContentValues valores = new ContentValues();
+        valores.put("posto_id",posto.getId());
         valores.put("latitude",posto.getLatitude());
         valores.put("longitude",posto.getLongitude());
         valores.put("cod_municipio",posto.getCodMunic());
@@ -45,6 +47,7 @@ public class BD {
 
     public void atualizar(Posto posto) {
         ContentValues valores = new ContentValues();
+        valores.put("posto_id",posto.getId());
         valores.put("latitude",posto.getLatitude());
         valores.put("longitude",posto.getLongitude());
         valores.put("cod_municipio",posto.getCodMunic());
@@ -68,7 +71,7 @@ public class BD {
         Cursor result = db.rawQuery("select * from postos where posto_id = ?",new String[] {id.toString()});
         result.moveToFirst();
         Posto posto = new Posto();
-        posto.setId(id);
+        posto.setId(result.getInt(0));
         posto.setLatitude(result.getDouble(1));
         posto.setLongitude(result.getDouble(2));
         posto.setCodMunic(result.getInt(3));
@@ -83,6 +86,7 @@ public class BD {
         posto.setDscEquipamentos(result.getString(12));
         posto.setDscNedicamentos(result.getString(13));
 
+
         return posto;
     }
     public void preencherBanco(Vector<Posto> postoVector){ // onde essa função deve ficar?
@@ -90,4 +94,10 @@ public class BD {
             inserir(posto);
         }
     }
+
+    public int size(){
+        Cursor result = db.rawQuery(("select posto_id from postos"),null);
+        return result.getCount();
+    }
+
 }

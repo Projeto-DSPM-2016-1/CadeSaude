@@ -17,7 +17,7 @@ public class BDcore extends SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table usuario(posto_id integer primary key autoincrement,latitude double not null, longitude double not null, cod_municipio integer not null, cod_cnes int not null, nome_posto text not null, bairro_posto text, cidade_posto text, telefone_posto text, dsc_estrut_fisic_ambiencia text, dsc_adap_defic_fisic_idosos text, dsc_equipamentos text, dsc_medicamentos text");
+        db.execSQL("create table postos(posto_id integer primary key, latitude double not null, longitude double not null, cod_municipio integer not null, cod_cnes integer not null, nome_posto text not null, bairro_posto text, cidade_posto text, telefone_posto text, dsc_estrut_fisic_ambiencia text, dsc_adap_defic_fisic_idosos text, dsc_equipamentos text, dsc_medicamentos text);");
     }
 
     @Override
