@@ -117,13 +117,15 @@ public class PostoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {*/
 
-                Uri comentatiosUri = Uri.parse("content://comentatios");
-                Intent pickContactIntent = new Intent(Intent.ACTION_PICK, comentatiosUri);
-                pickContactIntent.setAction("br.ufc.dc.dspm.cadesaude.DIALOGACTIVITY");
-                startActivityForResult(pickContactIntent, CONTACT_REQ);
+                //Uri comentatiosUri = Uri.parse("content://comentatios");
+                //Intent pickContactIntent = new Intent(Intent.ACTION_PICK, comentatiosUri);
+                //pickContactIntent.setAction("br.ufc.dc.dspm.cadesaude.DIALOGACTIVITY");
+
+                Intent commentsActivity = new Intent(PostoActivity.this,DialogActivity.class);
+                startActivityForResult(commentsActivity, CONTACT_REQ);
 
                 /*
-                Intent commentsActivity = new Intent(PostoActivity.this,DialogActivity.class);
+
                 Bundle bundle = new Bundle();
                 startActivityForResult(commentsActivity, CONTACT_REQ);
                 */
