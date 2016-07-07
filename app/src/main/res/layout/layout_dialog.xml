@@ -7,7 +7,7 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/etNewTweet"
+        android:id="@+id/et_novo_comentario"
         android:textSize="25dp"
         android:textStyle="bold"
         android:maxLength="140" />
