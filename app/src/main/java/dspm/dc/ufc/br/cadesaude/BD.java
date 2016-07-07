@@ -2,10 +2,12 @@ package dspm.dc.ufc.br.cadesaude;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Vector;
 
 import dspm.dc.ufc.br.cadesaude.models.Posto;
 
@@ -62,8 +64,30 @@ public class BD {
         db.delete("posto","posto_id = "+posto.getId(),null);
     }
 
-    public void preencherBanco(ArrayList<Posto> postoArrayList){ // onde essa função deve ficar?
-        for (int i = 0; i <= postoArrayList.size() ; i++) {
+    public Posto buscar(Integer id){
+        Cursor result = db.rawQuery("select * from postos where posto_id = ?",new String[] {id.toString()});
+        result.moveToFirst();
+        Posto posto = new Posto();
+        posto.setId(id);
+        posto.setLatitude(result.getDouble(1));
+        posto.setLongitude(result.getDouble(2));
+        posto.setCodMunic(result.getInt(3));
+        posto.setCodCnes(result.getInt(4));
+        posto.setName(result.getString(5));
+        posto.setEndereco(result.getString(6));
+        posto.setBairro(result.getString(7));
+        posto.setCidade(result.getString(8));
+        posto.setTelefone(result.getString(9));
+        posto.setDscEstrutFisicAmbiencia(result.getString(10));
+        posto.setDscAdapDeficFisicIdosos(result.getString(11));
+        posto.setDscEquipamentos(result.getString(12));
+        posto.setDscNedicamentos(result.getString(13));
+
+        return posto;
+    }
+    public void preencherBanco(Vector<Posto> postoVector){ // onde essa função deve ficar?
+        for (Posto posto: postoVector) {
+            inserir(posto);
         }
     }
 }
