@@ -73,11 +73,7 @@ public class PostoActivity extends AppCompatActivity {
 
         listarComentatiosPosto(); // assim que cria já lista os comentários daquele posto.
        // adicionarComentatiosPosto();
-
-        NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        manager.cancel(NOTIFICATION_ID);
-        Intent intent = new Intent(this, ApresentacaoActivity.class);
-        startActivity(intent);
+        
     }
 
     // Seta ação do botão de voltar na ActionBar
@@ -167,6 +163,14 @@ public class PostoActivity extends AppCompatActivity {
 
 
     }
+
+    public void recebeNotificacao(Bundle bundle){
+        NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        manager.cancel(NOTIFICATION_ID);
+        Intent intent = new Intent(this, ApresentacaoActivity.class);
+        startActivity(intent);
+    }
+
     /** Desnecessaŕio....
      *
      // voltar tela principal
