@@ -54,7 +54,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     LocationManager locationManager;
     MarkerOptions markerMe = null;
     LatLng meLocationLatLong;
-    public static final int NOTIFICATION_ID = 1; // cada notificação precisa de um número único
     public static final float RADIUS = 10000; // raio dos postos que aparecerá na aplicação
     public static final Integer RADIUS_KM = 10;
 
@@ -222,18 +221,4 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }
 
-    public void sendNotification(View view) {
-        Intent intent = new Intent(); // intenção do usuário quando clicar na notificação, atualmente não ta fazendo nada
-        PendingIntent pendingIntent = PendingIntent.getActivity(this,0,intent,0);
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
-        builder.setSmallIcon(R.drawable.ic_cast_on_0_light); // setar ícone pequeno
-        builder.setContentIntent(pendingIntent);
-        builder.setAutoCancel(true); // a notificação vai se auto cancelar, isso significa que a notifação vai desaparecer depois de clicado
-        builder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_media_play)); //setar ícone grande
-        builder.setContentTitle("Veja os postos que melhoraram ou pioraram");
-        builder.setContentText("Os postos da sua cidade mudaram bastante desde a última consulta");
-        builder.setSubText("clica e confira");
-        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        notificationManager.notify(NOTIFICATION_ID,builder.build());
-    }
 }

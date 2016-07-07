@@ -1,8 +1,12 @@
 package dspm.dc.ufc.br.cadesaude;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.BitmapFactory;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -16,6 +20,7 @@ import dspm.dc.ufc.br.cadesaude.server.GetPostosServer;
 public class ApresentacaoActivity extends AppCompatActivity {
 
     ProgressBar mProgress;
+    public static final int NOTIFICATION_ID = 1; // cada notificação precisa de um número único
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,5 +74,20 @@ public class ApresentacaoActivity extends AppCompatActivity {
 
         BDcore bdCore = new BDcore(this);
         bdCore.truncateDB();
+    }
+
+    public void sendNotification(View view) {
+        Intent intent = new Intent(); // intenção do usuário quando clicar na notificação, atualmente não ta fazendo nada
+        PendingIntent pendingIntent = PendingIntent.getActivity(this,0,intent,0);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+        builder.setSmallIcon(R.drawable.ic_cast_on_0_light); // setar ícone pequeno
+        builder.setContentIntent(pendingIntent);
+        builder.setAutoCancel(true); // a notificação vai se auto cancelar, isso significa que a notifação vai desaparecer depois de clicado
+        builder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_media_play)); //setar ícone grande
+        builder.setContentTitle("Veja os postos que melhoraram ou pioraram");
+        builder.setContentText("Os postos da sua cidade mudaram bastante desde a última consulta");
+        builder.setSubText("clica e confira");
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        notificationManager.notify(NOTIFICATION_ID,builder.build());
     }
 }
