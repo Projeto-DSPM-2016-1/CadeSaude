@@ -9,6 +9,10 @@ public class Comentario {
     private String nome;
     private String titulo;
     private String corpo;
+
+    private int comentario_id;
+    private int posto_id;
+
     public Comentario(){
     }
 
@@ -44,5 +48,20 @@ public class Comentario {
         this.corpo = corpo;
     }
 
+    public int getComentario_id(){
+        return comentario_id;
+    }
+
+    public void setComentario_id(int comentario_id){
+        this.comentario_id = comentario_id;
+    }
+
+    public int getPosto_id(){
+        return posto_id;
+    }
+
+    public void setPosto_id(int posto_id){
+        this.posto_id = posto_id;
+    }
 
 }

@@ -5,24 +5,27 @@
     android:layout_height="match_parent">
 
     <dspm.dc.ufc.br.cadesaude.custom_widgets.MyCustomEditText
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/et_nome_comentario"
         android:textSize="25dp"
-        android:maxLength="50" />
+        android:maxLength="300"
+        android:hint="Nome"/>
 
-    <!--<dspm.dc.ufc.br.cadesaude.custom_widgets.MyCustomEditText
-        android:layout_width="wrap_content"
+    <dspm.dc.ufc.br.cadesaude.custom_widgets.MyCustomEditText
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/et_titulo_comentario"
         android:textSize="25dp"
-        android:maxLength="50" />
+        android:maxLength="50"
+        android:hint="Assunto"/>
 
     <dspm.dc.ufc.br.cadesaude.custom_widgets.MyCustomEditText
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/et_corpo_comentario"
         android:textSize="25dp"
-        android:maxLength="300" />-->
+        android:maxLength="300"
+        android:hint="Comentário"/>
 
 </LinearLayout>
