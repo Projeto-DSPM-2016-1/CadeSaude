@@ -1,6 +1,8 @@
 package dspm.dc.ufc.br.cadesaude;
 
 import android.app.AlertDialog;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -39,6 +41,7 @@ public class PostoActivity extends AppCompatActivity {
     int i = 0;
 
     static final int CONTACT_REQ = 1;
+    private static final int NOTIFICATION_ID = 1;
 
     Intent apresentacaoActivity;
 
@@ -70,6 +73,11 @@ public class PostoActivity extends AppCompatActivity {
 
         listarComentatiosPosto(); // assim que cria já lista os comentários daquele posto.
        // adicionarComentatiosPosto();
+
+        NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        manager.cancel(NOTIFICATION_ID);
+        Intent intent = new Intent(this, ApresentacaoActivity.class);
+        startActivity(intent);
     }
 
     // Seta ação do botão de voltar na ActionBar
