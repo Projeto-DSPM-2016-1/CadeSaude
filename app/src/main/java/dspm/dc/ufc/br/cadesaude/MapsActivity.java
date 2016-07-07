@@ -33,6 +33,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Vector;
 
 import dspm.dc.ufc.br.cadesaude.DAO.BD;
 import dspm.dc.ufc.br.cadesaude.models.Posto;
@@ -55,6 +56,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     LatLng meLocationLatLong;
     public static final int NOTIFICATION_ID = 1; // cada notificação precisa de um número único
     public static final float RADIUS = 10000; // raio dos postos que aparecerá na aplicação
+    public static final Integer RADIUS_KM = 10;
 
     // Create the hash map on the beginning
     HashMap<String, Posto> markerPostoMap;
@@ -70,7 +72,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         markerPostoMap = new HashMap <String, Posto>();
 
         banco = new BD(context);
-        //buildLocationService(); algum objeto nulo está sendo chamado aqui por isso dá erro, depois ver isso
+        //Posto p = new Posto(30000, -3.731628, -38.588563, "Posto de Teste", 30000, 30000, );
+
+        buildLocationService(); //algum objeto nulo está sendo chamado aqui por isso dá erro, depois ver isso
 
         mapFragment.getMapAsync(this);
     }
@@ -121,7 +125,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
 
         //LatLng locationLatLong = null;
-        Log.d("Response", "2");
+        Log.d("Response", "Entrou getLocation");
         Location location = locationManager.getLastKnownLocation(provider);
         if(location == null)
         {
@@ -167,14 +171,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Location location2 = new Location("posto"); // localização de algum posto
         Posto pTemp;
 
-        for (int j = 1; j <= banco.size();j++){ // pecorre todos os postos
-            Posto posto = banco.buscar(j); // busca o posto
-            location2.setLatitude(posto.getLatitude()); // seta a latitude
-            location2.setLongitude(posto.getLongitude()); // seta longitude
-            if(location.distanceTo(location2)< RADIUS){ //compara se a distancia é maior que o raio definidido, se não for, é colocado na lista dos postos pra mostrar
-                list.add(posto);
-            }
-        }
+
+        Vector<Posto> pTempRadius = banco.getByRadius(location.getLatitude(), location.getLongitude());
+        list.addAll(pTempRadius);
 
         // Dados para simulação
 
