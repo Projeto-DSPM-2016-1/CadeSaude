@@ -7,8 +7,22 @@
     <dspm.dc.ufc.br.cadesaude.custom_widgets.MyCustomEditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/et_novo_comentario"
+        android:id="@+id/et_nome_comentario"
         android:textSize="25dp"
-        android:maxLength="400" />
+        android:maxLength="50" />
+
+    <!--<dspm.dc.ufc.br.cadesaude.custom_widgets.MyCustomEditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/et_titulo_comentario"
+        android:textSize="25dp"
+        android:maxLength="50" />
+
+    <dspm.dc.ufc.br.cadesaude.custom_widgets.MyCustomEditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/et_corpo_comentario"
+        android:textSize="25dp"
+        android:maxLength="300" />-->
 
 </LinearLayout>
