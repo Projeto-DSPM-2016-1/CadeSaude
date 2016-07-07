@@ -34,6 +34,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import dspm.dc.ufc.br.cadesaude.DAO.BD;
 import dspm.dc.ufc.br.cadesaude.models.Posto;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback ,
@@ -69,7 +70,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         markerPostoMap = new HashMap <String, Posto>();
 
         banco = new BD(context);
-        buildLocationService();
+        //buildLocationService(); algum objeto nulo está sendo chamado aqui por isso dá erro, depois ver isso
 
         mapFragment.getMapAsync(this);
     }

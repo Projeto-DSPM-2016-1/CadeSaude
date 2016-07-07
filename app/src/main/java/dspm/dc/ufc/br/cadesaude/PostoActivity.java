@@ -62,7 +62,7 @@ public class PostoActivity extends AppCompatActivity {
 
         tv_posto_name.setText("Id: " + id + " - " + name);
 
-        listarComentatiosPosto(); // assim que cria já lista os comentários daquele posto.
+         listarComentatiosPosto(); // assim que cria já lista os comentários daquele posto.
     }
 
     // Seta ação do botão de voltar na ActionBar
@@ -148,9 +148,10 @@ public class PostoActivity extends AppCompatActivity {
         addComent = (Button) findViewById(R.id.bt_add);
         listView = (ListView) findViewById(R.id.list);
 
-        //array = new ArrayList<String>(){};
+        array = new ArrayList<Comentario>(){};
 
-        //array.add(0,"test");
+        Comentario comentarioTest = new Comentario("Test","Test","Este é um test");
+        array.add(0,comentarioTest);
 
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_multiple_choice,array);
         listView.setAdapter(adapter);

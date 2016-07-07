@@ -1,14 +1,11 @@
-package dspm.dc.ufc.br.cadesaude;
+package dspm.dc.ufc.br.cadesaude.DAO;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.location.Location;
 import android.util.Log;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Vector;
 
 import dspm.dc.ufc.br.cadesaude.models.Posto;
@@ -97,7 +94,6 @@ public class BD {
         posto.setDscAdapDeficFisicIdosos(result.getString(11));
         posto.setDscEquipamentos(result.getString(12));
         posto.setDscNedicamentos(result.getString(13));
-
 
         return posto;
     }

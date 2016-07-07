@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import dspm.dc.ufc.br.cadesaude.DAO.BDcore;
 import dspm.dc.ufc.br.cadesaude.server.GetPostosServer;
 
 

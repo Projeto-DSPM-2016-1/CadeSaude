@@ -1,4 +1,4 @@
-package dspm.dc.ufc.br.cadesaude;
+package dspm.dc.ufc.br.cadesaude.DAO;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

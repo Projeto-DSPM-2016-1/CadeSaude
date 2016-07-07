@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -13,10 +12,9 @@ import org.json.JSONObject;
 
 import java.util.Vector;
 
-import dspm.dc.ufc.br.cadesaude.BD;
+import dspm.dc.ufc.br.cadesaude.DAO.BD;
 import dspm.dc.ufc.br.cadesaude.Statics;
 import dspm.dc.ufc.br.cadesaude.models.Posto;
-import dspm.dc.ufc.br.cadesaude.server.WebRequest;
 
 /**
  * Created by Thiago on 06/07/2016.
