@@ -67,6 +67,7 @@
         <activity android:name=".DialogActivity">
             <intent-filter>
                 <action android:name="br.ufc.dc.dspm.cadesaude.DIALOGACTIVITY"/>
+
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>

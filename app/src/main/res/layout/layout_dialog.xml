@@ -34,6 +34,7 @@
         android:id="@+id/bt_add_comentario"
         android:layout_width="150sp"
         android:layout_height="wrap_content"
+        android:onClick="adicionarComentatiosPosto"
         android:textColor="@color/whitTextButton"
         android:background="@color/red"
         android:text="Done"

@@ -25,20 +25,23 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import dspm.dc.ufc.br.cadesaude.DAO.ComentarioDAO;
 import dspm.dc.ufc.br.cadesaude.models.Comentario;
 
 public class PostoActivity extends AppCompatActivity {
 
     AlertDialog.Builder dialogBuilder;
-    ArrayAdapter<Comentario> adapter;
-    ArrayList<Comentario> array;
+    ArrayAdapter<String> adapter;
+    ArrayList<String> array;
     LayoutInflater inflater;
     ListView listView ;
     Button addComent;
     TextView tv_posto_name;
     Button bt_submit;
     RatingBar rb_ratingbar;
-    int i = 0;
+    ComentarioDAO cDAO;
+
+    public ArrayList<String> comentariosList;
 
     static final int CONTACT_REQ = 1;
     private static final int NOTIFICATION_ID = 1;
@@ -46,7 +49,6 @@ public class PostoActivity extends AppCompatActivity {
     Intent apresentacaoActivity;
 
     private int index; // vai servir para alguma coisa ainda isso.....
-    public void setIndex(int indexView){ this.index = indexView;}
     public int getIndex(){return index;}
 
 
@@ -65,15 +67,14 @@ public class PostoActivity extends AppCompatActivity {
 
         tv_posto_name = (TextView) findViewById(R.id.tv_posto_name);
 
-        int id = getIntent().getIntExtra("ID", 0);
+        index = getIntent().getIntExtra("ID", 0);
         String name = getIntent().getStringExtra("NOME");
 
-        tv_posto_name.setText("Id: " + id + " - " + name);
-        array = new ArrayList<Comentario>();
-
+        tv_posto_name.setText("Id: " + index + " - " + name); //indice do posto
+        array = new ArrayList<String>();
+        array.add(0,"");
         listarComentatiosPosto(); // assim que cria já lista os comentários daquele posto.
-       // adicionarComentatiosPosto();
-        
+
     }
 
     // Seta ação do botão de voltar na ActionBar
@@ -86,7 +87,6 @@ public class PostoActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-
     public void listernerForRatingBar(){ // em qualquer mudança na rating bar, essa função será chamada
         rb_ratingbar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
@@ -107,49 +107,27 @@ public class PostoActivity extends AppCompatActivity {
             }
         });
     }
-    /**
-     *    IMPLEMENTAR ALGUMAS FUNÇÕES PARA RECUPERAR INFORMAÇÕES DO POSTO
-     *   CORRETO DE ACORDO COM O QUE FOI CLICADO E USAR ESSAS INFORMAÇÕES NESSA ACTIVITY
-     *   APÓS A DEFINIÇÃO DESSAS INFROMAÇÕES.....
-     * */
+
 
     public void adicionarComentatiosPosto(View view){
-        /*
-        addComent = (Button) findViewById(R.id.bt_add);
-
-        addComent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {*/
-
-                //Uri comentatiosUri = Uri.parse("content://comentatios");
-                //Intent pickContactIntent = new Intent(Intent.ACTION_PICK, comentatiosUri);
-                //pickContactIntent.setAction("br.ufc.dc.dspm.cadesaude.DIALOGACTIVITY");
-
-                Intent commentsActivity = new Intent(PostoActivity.this,DialogActivity.class);
-                startActivityForResult(commentsActivity, CONTACT_REQ);
-
-                /*
-
-                Bundle bundle = new Bundle();
-                startActivityForResult(commentsActivity, CONTACT_REQ);
-                */
-          //  }
-        //});
-
+        Intent commentsActivity = new Intent(PostoActivity.this,DialogActivity.class);
+        startActivityForResult(commentsActivity, CONTACT_REQ);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent	data)	{
         if (requestCode	==	CONTACT_REQ)	{
-            //	Possible values:	RESULT_OK,	RESULT_CANCELED	or	RESULT_FIRST_USER
-            if (resultCode	==	RESULT_OK)	{
-                listarComentatiosPosto();
+            Bundle params = data.getExtras();
+            if(params != null){
+                int option = params.getInt("CommentDone"); // Nem preciso desse int
+                adapter.notifyDataSetChanged();
             }
         }
     }
 
-    /** Mostrar os comentários de cada posto para ser adicionado no listview*/
 
+
+    /** Mostrar os comentários de cada posto para ser adicionado no listview*/
     public void listarComentatiosPosto(){
         dialogBuilder = new AlertDialog.Builder(this);
         inflater = this.getLayoutInflater();
@@ -158,37 +136,23 @@ public class PostoActivity extends AppCompatActivity {
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_multiple_choice,array);
         listView.setAdapter(adapter);
 
-        /**
-         *  pegar informações do posto, não vai ter ação ao clicar nos items...
-         *
-         * */
+        //?
+        cDAO = new ComentarioDAO(PostoActivity.this);
+        // teoricamente aqui teremos todos os comentarios vidos daquele posto
+        comentariosList = cDAO.getComentariosPosto(1); // use getIndex()....
 
-
+        String a;
+        int i;
+        for(i=0;i<comentariosList.size();i++){
+            a = comentariosList.get(i);
+            array.add(i,a);
+        }
     }
-
     public void recebeNotificacao(Bundle bundle){
         NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         manager.cancel(NOTIFICATION_ID);
         Intent intent = new Intent(this, ApresentacaoActivity.class);
         startActivity(intent);
     }
-
-    /** Desnecessaŕio....
-     *
-     // voltar tela principal
-     public void backHome(View view){
-     backHome = (Button) findViewById(R.id.bt_voltar);
-     backHome.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-    apresentacaoActivity = new Intent(PostoActivity.
-    this,ApresentacaoActivity.class);
-    startActivity(apresentacaoActivity);
-    finish();
-    }
-    });
-
-     }*/
-
 }
 
