@@ -29,11 +29,11 @@ public class ComentarioDAO extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         String sql = "CREATE TABLE " + TABELA + "(" +
-                "id INTEGER PRIMARY KEY REFERENCES postos(id),"+
-                //"id INTEGER PRIMARY KEY, "+
+                "id INTEGER PRIMARY KEY,"+
                 "name TEXT NOT NULL, "+
                 "titulo TEXT, "+
                 "corpo TEXT, "+
+                "posto_id INTEGER, "+
                 ");";
         try {
             db.execSQL(sql);
@@ -56,6 +56,7 @@ public class ComentarioDAO extends SQLiteOpenHelper {
         cv.put("name", comentario.getNome());
         cv.put("titulo",comentario.getTitulo());
         cv.put("corpo",comentario.getCorpo());
+        cv.put("posto_id",comentario.getPosto_id());
         return getWritableDatabase().insert(TABELA, null, cv);
      }
 
@@ -75,6 +76,7 @@ public class ComentarioDAO extends SQLiteOpenHelper {
             comentario.setNome(cursor.getString(cursor.getColumnIndex("name")));
             comentario.setTitulo(cursor.getString(cursor.getColumnIndex("titulo")));
             comentario.setCorpo(cursor.getString(cursor.getColumnIndex("corpo")));
+            comentario.setPosto_id(cursor.getInt(cursor.getColumnIndex("posto_id")));
         }
         cursor.close();
         return comentario;
